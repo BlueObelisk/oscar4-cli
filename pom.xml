@@ -8,7 +8,18 @@
   <packaging>jar</packaging>
 
   <name>oscar4-cli</name>
-  <url>http://maven.apache.org</url>
+
+  <parent>
+    <groupId>wwmm</groupId>
+    <artifactId>wwmm-parent</artifactId>
+    <version>1</version>
+  </parent>
+  <repositories>
+    <repository>
+      <id>ucc-repo</id>
+      <url>https://maven.ch.cam.ac.uk/m2repo</url>
+    </repository>
+  </repositories>
 
   <dependencyManagement>
   	<dependencies>
