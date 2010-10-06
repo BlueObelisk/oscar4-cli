@@ -6,9 +6,11 @@ import java.util.List;
 import nu.xom.Builder;
 import nu.xom.Document;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
-import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.ProcessingDocument;
+import uk.ac.cam.ch.wwmm.oscar.document.ProcessingDocumentFactory;
+import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscarMEMM.MEMMRecogniser;
+import uk.ac.cam.ch.wwmm.oscarMEMM.memm.document.Tokeniser;
 
 /**
  * @author egonw
@@ -29,39 +31,24 @@ public class Oscar {
 	public List<TokenSequence> tokenize(String input) throws Exception {
 		Builder parser = new Builder();
 		Document doc = parser.build(
-			"<node>" + input + "</node>",
+			"<P>" + input + "</P>",
 			"http://whatever.example.org/"
 		);
-		throw new Exception(
-			"Need to port ProcessingDocumentFactory to oscar4-core first"
-		);
-//		ProcessingDocument procDoc = new ProcessingDocumentFactory().
-//			makeTokenisedDocument(
-//				doc, true, false, false
-//			);
-//		List<String> tokens = new ArrayList<String>();
-//		List<TokenSequence> tokenSequences = procDoc.getTokenSequences();
-//		return tokenSequences;
-//		for (TokenSequence sequence : tokenSequences) {
-//			List<Token> realTokens = sequence.getTokens();
-//			for (Token token : realTokens) {
-//				tokens.add(token.getValue());
-//			}
-//		}
-//		return tokens;
+		ProcessingDocument procDoc = new ProcessingDocumentFactory().
+			makeTokenisedDocument(Tokeniser.getInstance(),
+				doc, true, false, false
+			);
+		List<TokenSequence> tokenSequences = procDoc.getTokenSequences();
+		return tokenSequences;
 	}
 
 	public String normalize(String input) {
 		return input;
 	}
 
-	public List<NamedEntity> recognizeNamedEntities(List<TokenSequence> tokens) {
-		List<String> entities = new ArrayList<String>();
-		throw new RuntimeException(
-			"I need to make MEMMRecognizer use the classes from oscar4-core first."
-		);
-//		MEMMRecogniser mer = new MEMMRecogniser();
-//		return mer.findNamedEntities(tokens);
+	public List<NamedEntity> recognizeNamedEntities(List<TokenSequence> tokens) throws Exception {
+		MEMMRecogniser mer = new MEMMRecogniser();
+		return mer.findNamedEntities(tokens);
 	}
 
 }
