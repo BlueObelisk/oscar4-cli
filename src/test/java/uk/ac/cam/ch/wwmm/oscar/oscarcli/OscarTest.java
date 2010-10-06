@@ -24,11 +24,16 @@ public class OscarTest {
 		Assert.assertNotNull(input);
 	}
 
-	@Ignore("Until problems in tokenize() are solved")
+	@Test
 	public void testTokenize() throws Exception {
 		Oscar oscar = new Oscar();
 		List<TokenSequence> tokens = oscar.tokenize("This is a simple input string with benzene.");
 		Assert.assertNotNull(tokens);
 		Assert.assertNotSame(0, tokens.size());
 	}
+
+	@Test public void testMain() throws Exception {
+		Oscar.main(new String[]{"This is a simple input string with benzene."});
+	}
+
 }
