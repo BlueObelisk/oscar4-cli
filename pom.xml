@@ -21,10 +21,6 @@
     </repository>
   </repositories>
 
-  <dependencyManagement>
-  	<dependencies>
-  	</dependencies>
-  </dependencyManagement>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -36,13 +32,6 @@
   		<version>4.7</version>
   	</dependency>
   	<dependency>
-  		<groupId>uk.ac.cam.ch.wwmm.oscar</groupId>
-  		<artifactId>oscar4</artifactId>
-  		<version>4.0-SNAPSHOT</version>
-  		<type>pom</type>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
   		<groupId>xom</groupId>
   		<artifactId>xom</artifactId>
   		<version>1.2.3</version>
@@ -51,7 +40,16 @@
   		<groupId>uk.ac.cam.ch.wwmm.oscar</groupId>
   		<artifactId>oscar4-tokenizer</artifactId>
   		<version>4.0-SNAPSHOT</version>
-  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>uk.ac.cam.ch.wwmm.oscar</groupId>
+  		<artifactId>oscar4-memmrecogniser</artifactId>
+  		<version>4.0-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>uk.ac.cam.ch.wwmm.oscar</groupId>
+  		<artifactId>oscar4-core</artifactId>
+  		<version>4.0-SNAPSHOT</version>
   	</dependency>
   </dependencies>
 </project>
