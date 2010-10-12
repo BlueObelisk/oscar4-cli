@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import uk.ac.cam.ch.wwmm.opsin.NameToStructureException;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 
 /**
@@ -13,12 +14,12 @@ import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
  */
 public class OscarTest {
 
-	@Test public void testConstructor() {
+	@Test public void testConstructor() throws NameToStructureException {
 		Oscar oscar = new Oscar();
 		Assert.assertNotNull(oscar);
 	}
 
-	@Test public void testNormalize() {
+	@Test public void testNormalize() throws NameToStructureException {
 		Oscar oscar = new Oscar();
 		String input = oscar.normalize("This is a simple input string with benzene.");
 		Assert.assertNotNull(input);
