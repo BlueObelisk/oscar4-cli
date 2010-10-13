@@ -1,7 +1,8 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import nu.xom.Builder;
 import nu.xom.Document;
@@ -30,7 +31,7 @@ public class Oscar {
 	};
 	
 	public static void main(String[] args) throws Exception {
-		String input = "some aspirin would be nice";
+		String input = "some 1-propanol would be nice";
 		if (args.length > 0) {
 			StringBuilder builder = new StringBuilder();
 			for (String arg : args) builder.append(arg);
@@ -40,24 +41,19 @@ public class Oscar {
 		input = oscar.normalize(input);
 		List<TokenSequence> tokens = oscar.tokenize(input);
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
-		for (NamedEntity entity : entities) {
-			System.out.println(entity);
-		}
-		List<Element> molecules = oscar.resolveNamedEntities(entities);
-		for (Element mol : molecules) {
-			System.out.println(mol.getLocalName());
-		}
+		Map<Element,NamedEntity> molecules = oscar.resolveNamedEntities(entities);
 	}
 
-	private List<Element> resolveNamedEntities(List<NamedEntity> entities) {
-		List<Element> cmlMols = new ArrayList<Element>();
+	private Map<Element,NamedEntity> resolveNamedEntities(List<NamedEntity> entities) {
+		Map<Element,NamedEntity> cmlMols = new HashMap<Element,NamedEntity>();
 		for (NamedEntity entity : entities) {
 			System.out.println("Entity: " + entity.getSurface());
 			OpsinResult result = nameToStructure.parseChemicalName(
 				entity.getSurface(), false
 			);
-			if (result.getStatus() == OPSIN_RESULT_STATUS.SUCCESS)
-				cmlMols.add(result.getCml());
+			if (result.getStatus() == OPSIN_RESULT_STATUS.SUCCESS) {
+				cmlMols.put(result.getCml(), entity);
+			}
 		}
 		return cmlMols;
 	}
