@@ -42,6 +42,8 @@ public class Oscar {
 		List<TokenSequence> tokens = oscar.tokenize(input);
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
 		Map<Element,NamedEntity> molecules = oscar.resolveNamedEntities(entities);
+		for (Element element : molecules.keySet())
+			System.out.println(element.toXML());
 	}
 
 	private Map<Element,NamedEntity> resolveNamedEntities(List<NamedEntity> entities) {
