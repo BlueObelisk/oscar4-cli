@@ -17,7 +17,7 @@ import uk.ac.cam.ch.wwmm.oscar.document.ProcessingDocumentFactory;
 import uk.ac.cam.ch.wwmm.oscar.document.Token;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscarMEMM.MEMMRecogniser;
-import uk.ac.cam.ch.wwmm.oscarMEMM.memm.document.Tokeniser;
+import uk.ac.cam.ch.wwmm.oscartokeniser.Tokeniser;
 
 /**
  * @author egonw
