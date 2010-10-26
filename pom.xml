@@ -19,6 +19,10 @@
       <id>ucc-repo</id>
       <url>https://maven.ch.cam.ac.uk/m2repo</url>
     </repository>
+    <repository>
+      <id>jexample-repo</id>
+      <url>http://scg.unibe.ch/download/jexample/maven/</url>
+    </repository>
   </repositories>
 
   <properties>
@@ -56,6 +60,11 @@
   		<artifactId>oscar4-opsin</artifactId>
   		<version>4.0-SNAPSHOT</version>
   	</dependency>
+        <dependency>
+                <groupId>ch.unibe.jexample</groupId>
+                <artifactId>jexample</artifactId>
+                <version>4.4-378</version>
+        </dependency>
   </dependencies>
 
     <build>

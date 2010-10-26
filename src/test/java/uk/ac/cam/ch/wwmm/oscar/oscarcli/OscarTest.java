@@ -6,49 +6,51 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
+import ch.unibe.jexample.Given;
+import ch.unibe.jexample.JExample;
 
 /**
  * @author egonw
  */
+@RunWith(JExample.class)
 public class OscarTest {
 
-	@Test public void testConstructor() throws URISyntaxException {
+	@Test public Oscar testConstructor() throws URISyntaxException {
 		Oscar oscar = new Oscar();
 		Assert.assertNotNull(oscar);
+		return oscar;
 	}
 
-	@Test public void testNormalize() throws URISyntaxException {
-		Oscar oscar = new Oscar();
+	@Given("#testConstructor")
+	public String testNormalize(Oscar oscar) throws URISyntaxException {
 		String input = oscar.normalize("This is a simple input string with benzene.");
 		Assert.assertNotNull(input);
+		return input;
 	}
 
-	@Test
-	public void testTokenize() throws Exception {
-		Oscar oscar = new Oscar();
-		List<TokenSequence> tokens = oscar.tokenize("This is a simple input string with benzene.");
+	@Given("#testConstructor,#testNormalize")
+	public List<TokenSequence> testTokenize(Oscar oscar, String input) throws Exception {
+		List<TokenSequence> tokens = oscar.tokenize(input);
 		Assert.assertNotNull(tokens);
 		Assert.assertNotSame(0, tokens.size());
+		return tokens;
 	}
 
-	@Test
-	public void testRecognizeNamedEntities() throws Exception {
-		Oscar oscar = new Oscar();
-		List<TokenSequence> tokens = oscar.tokenize("This is a simple input string with benzene.");
+	@Given("#testConstructor,#testTokenize")
+	public List<NamedEntity> testRecognizeNamedEntities(Oscar oscar, List<TokenSequence> tokens) throws Exception {
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
 		System.out.println(""+ entities.get(0));
+		return entities;
 	}
 
-	@Test
-	public void testResolveNamedEntities() throws Exception {
-		Oscar oscar = new Oscar();
-		List<TokenSequence> tokens = oscar.tokenize("This is a simple input string with benzene.");
-		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
+	@Given("#testConstructor,#testRecognizeNamedEntities")
+	public void testResolveNamedEntities(Oscar oscar, List<NamedEntity> entities) throws Exception {
 		Map<NamedEntity,String> structures = oscar.resolveNamedEntities(entities);
 		Assert.assertNotNull(structures);
 		Assert.assertEquals(1, structures.size());
