@@ -1,21 +1,20 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import nu.xom.Builder;
 import nu.xom.Document;
-import nu.xom.Element;
-import uk.ac.cam.ch.wwmm.opsin.NameToStructure;
-import uk.ac.cam.ch.wwmm.opsin.NameToStructureException;
-import uk.ac.cam.ch.wwmm.opsin.OpsinResult;
-import uk.ac.cam.ch.wwmm.opsin.OpsinResult.OPSIN_RESULT_STATUS;
+import uk.ac.cam.ch.wwmm.oscar.chemnamedict.ChemNameDictRegistry;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.ProcessingDocument;
 import uk.ac.cam.ch.wwmm.oscar.document.ProcessingDocumentFactory;
 import uk.ac.cam.ch.wwmm.oscar.document.Token;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
+import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
 import uk.ac.cam.ch.wwmm.oscarMEMM.MEMMRecogniser;
 import uk.ac.cam.ch.wwmm.oscartokeniser.Tokeniser;
 
@@ -24,10 +23,11 @@ import uk.ac.cam.ch.wwmm.oscartokeniser.Tokeniser;
  */
 public class Oscar {
 
-	private NameToStructure nameToStructure;
-	
-	public Oscar() throws NameToStructureException {
-		nameToStructure = NameToStructure.getInstance();
+	ChemNameDictRegistry registry;
+
+	public Oscar() throws URISyntaxException {
+		registry = ChemNameDictRegistry.getInstance();
+		registry.register(new OpsinDictionary());
 	};
 	
 	public static void main(String[] args) throws Exception {
@@ -41,23 +41,25 @@ public class Oscar {
 		input = oscar.normalize(input);
 		List<TokenSequence> tokens = oscar.tokenize(input);
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
-		Map<Element,NamedEntity> molecules = oscar.resolveNamedEntities(entities);
-		for (Element element : molecules.keySet())
-			System.out.println(element.toXML());
+		Map<NamedEntity,String> molecules = oscar.resolveNamedEntities(entities);
+		for (String element : molecules.values())
+			System.out.println(element);
 	}
 
-	private Map<Element,NamedEntity> resolveNamedEntities(List<NamedEntity> entities) {
-		Map<Element,NamedEntity> cmlMols = new HashMap<Element,NamedEntity>();
+	public Map<NamedEntity,String> resolveNamedEntities(List<NamedEntity> entities) {
+		Map<NamedEntity,String> hits = new HashMap<NamedEntity,String>();
 		for (NamedEntity entity : entities) {
-			System.out.println("Entity: " + entity.getSurface());
-			OpsinResult result = nameToStructure.parseChemicalName(
-				entity.getSurface(), false
-			);
-			if (result.getStatus() == OPSIN_RESULT_STATUS.SUCCESS) {
-				cmlMols.put(result.getCml(), entity);
+			String name = entity.getSurface();
+			System.out.println("Entity: " + name);
+			Set<String> inchis = registry.getInChI(name);
+			if (inchis.size() == 1) {
+				hits.put(entity, inchis.iterator().next());
+			} else if (inchis.size() > 1) {
+				System.out.println("Warning: multiple hits, returning only one");
+				hits.put(entity, inchis.iterator().next());
 			}
 		}
-		return cmlMols;
+		return hits;
 	}
 
 	public List<TokenSequence> tokenize(String input) throws Exception {
