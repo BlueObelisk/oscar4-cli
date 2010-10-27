@@ -21,7 +21,7 @@ import ch.unibe.jexample.JExample;
 public class OscarTest {
 
 	@Test public Oscar testConstructor() throws URISyntaxException {
-		Oscar oscar = new Oscar();
+		Oscar oscar = new Oscar(getClass().getClassLoader());
 		Assert.assertNotNull(oscar);
 		return oscar;
 	}
