@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
+import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
 import ch.unibe.jexample.Given;
 import ch.unibe.jexample.JExample;
 
@@ -52,6 +53,7 @@ public class OscarCLITest {
 
 	@Given("#testConstructor,#testRecognizeNamedEntities")
 	public void testResolveNamedEntities(Oscar oscar, List<NamedEntity> entities) throws Exception {
+		oscar.getChemNameDict().register(new OpsinDictionary());
 		Map<NamedEntity,String> structures = oscar.resolveNamedEntities(entities);
 		Assert.assertNotNull(structures);
 		Assert.assertEquals(1, structures.size());
