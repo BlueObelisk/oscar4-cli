@@ -18,7 +18,7 @@ import ch.unibe.jexample.JExample;
  * @author egonw
  */
 @RunWith(JExample.class)
-public class OscarTest {
+public class OscarCLITest {
 
 	@Test public Oscar testConstructor() throws URISyntaxException {
 		Oscar oscar = new Oscar(getClass().getClassLoader());
