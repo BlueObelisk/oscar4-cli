@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import ch.unibe.jexample.Given;
@@ -58,7 +59,7 @@ public class OscarTest {
 	}
 
 	@Test public void testMain() throws Exception {
-		Oscar.main(new String[]{"This is a simple input string with benzene."});
+		OscarCLI.main(new String[]{"This is a simple input string with benzene."});
 	}
 
 }
