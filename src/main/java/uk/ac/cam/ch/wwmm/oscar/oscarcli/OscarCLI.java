@@ -1,23 +1,14 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import nu.xom.Builder;
-import nu.xom.Document;
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.chemnamedict.ChemNameDictRegistry;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
-import uk.ac.cam.ch.wwmm.oscar.document.ProcessingDocument;
-import uk.ac.cam.ch.wwmm.oscar.document.ProcessingDocumentFactory;
-import uk.ac.cam.ch.wwmm.oscar.document.Token;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
-import uk.ac.cam.ch.wwmm.oscarMEMM.MEMMRecogniser;
-import uk.ac.cam.ch.wwmm.oscartokeniser.Tokeniser;
 
 /**
  * @author egonw
@@ -38,7 +29,7 @@ public class OscarCLI {
 			for (String arg : args) builder.append(arg);
 			input = builder.toString();
 		}
-		Oscar oscar = new Oscar();
+		Oscar oscar = new Oscar(OscarCLI.class.getClassLoader());
 		input = oscar.normalize(input);
 		List<TokenSequence> tokens = oscar.tokenize(input);
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
