@@ -1,6 +1,7 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
 import java.net.URISyntaxException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -53,11 +54,24 @@ public class OscarCLITest {
 
 	@Given("#testConstructor,#testRecognizeNamedEntities")
 	public void testResolveNamedEntities(Oscar oscar, List<NamedEntity> entities) throws Exception {
-		oscar.getChemNameDict().register(new OpsinDictionary());
+		oscar.getDictionaryRegistry().register(new OpsinDictionary());
 		Map<NamedEntity,String> structures = oscar.resolveNamedEntities(entities);
 		Assert.assertNotNull(structures);
 		Assert.assertEquals(1, structures.size());
 		System.out.println(""+ structures.values().iterator().next());
+	}
+
+	@Given("#testConstructor")
+	public void testGetNamedEntities(Oscar oscar) throws Exception {
+		oscar.getDictionaryRegistry().register(new OpsinDictionary());
+		Map<NamedEntity,String> structures = oscar.getNamedEntities(
+			"Ingredients: acetic acid, water."
+		);
+		Assert.assertNotNull(structures);
+		Assert.assertEquals(2, structures.size());
+		Iterator<String> iter = structures.values().iterator();
+		System.out.println(""+ iter.next());
+		System.out.println(""+ iter.next());
 	}
 
 	@Test public void testMain() throws Exception {
