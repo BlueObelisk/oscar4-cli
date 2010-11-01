@@ -29,7 +29,7 @@ public class OscarCLI {
 			for (String arg : args) builder.append(arg);
 			input = builder.toString();
 		}
-		Oscar oscar = new Oscar(OscarCLI.class.getClassLoader());
+		Oscar oscar = new Oscar();
 		input = oscar.normalize(input);
 		List<TokenSequence> tokens = oscar.tokenize(input);
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
