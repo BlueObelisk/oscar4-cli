@@ -1,5 +1,7 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
@@ -82,8 +84,38 @@ public class OscarCLITest {
 		Assert.assertEquals(2, structures.size());
 	}
 
-	@Test public void testMain() throws Exception {
-		OscarCLI.main(new String[]{"This is a simple input string with benzene."});
+	@Test public void testMainPlainText() throws Exception {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		PrintStream pStream = new PrintStream(stream, true);
+		PrintStream originalOut = System.out;
+		System.setOut(pStream);
+		OscarCLI.main(
+			new String[]{
+				"This is a simple input string with benzene."
+			}
+		);
+		System.setOut(originalOut);
+		String output = stream.toString();
+		System.out.println("output: " + output);
+		Assert.assertTrue(output.contains("InChI"));
 	}
 
+	@Test public void testMainRDF() throws Exception {
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		PrintStream pStream = new PrintStream(stream, true);
+		PrintStream originalOut = System.out;
+		System.setOut(pStream);
+		OscarCLI.main(
+			new String[]{
+				"-accepts", "text/turtle",
+				"This is a simple input string with benzene."
+			}
+		);
+		System.setOut(originalOut);
+		String output = stream.toString();
+		System.out.println("output: " + output);
+		Assert.assertTrue(output.contains("@prefix"));
+		Assert.assertTrue(output.contains("cheminf"));
+		Assert.assertTrue(output.contains("ex:entity"));
+	}
 }
