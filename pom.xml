@@ -70,6 +70,11 @@
         	<artifactId>oscar4-api</artifactId>
         	<version>4.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+        	<groupId>com.google.code.cli-parser</groupId>
+        	<artifactId>cli</artifactId>
+        	<version>7</version>
+        </dependency>
   </dependencies>
 
     <build>
