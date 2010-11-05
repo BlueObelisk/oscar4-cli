@@ -8,6 +8,9 @@ import java.util.Map;
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
+import uk.ac.cam.ch.wwmm.oscar.formatter.IOutputFormatter;
+import uk.ac.cam.ch.wwmm.oscar.formatter.STDOUTFormatter;
+import uk.ac.cam.ch.wwmm.oscar.formatter.rdf.CHEMINFFormatter;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
 
 import com.sampullara.cli.Args;
@@ -26,42 +29,30 @@ public class OscarCLI {
 
 	private Oscar oscar;
 
-	private int counter;
-
 	public OscarCLI() throws Exception {
 		oscar = new Oscar();
 		oscar.getDictionaryRegistry().register(new OpsinDictionary());
-		counter = 0;
 	};
 	
-	public void processLine(String line) throws Exception {
+	public void processLine(String line, IOutputFormatter formatter) throws Exception {
 		line = oscar.normalize(line);
 		List<TokenSequence> tokens = oscar.tokenize(line);
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
 		Map<NamedEntity,String> molecules = oscar.resolveNamedEntities(entities);
-		if ("text/plain".equals(accepts)) {
-			for (NamedEntity entity : molecules.keySet()) {
-				System.out.print(entity.getSurface() + ": ");
-				System.out.println(molecules.get(entity));
-			}
-		} else if ("text/turtle".equals(accepts)) {
-			for (NamedEntity entity : molecules.keySet()) {
-				System.out.println("ex:entity" + (counter++) + " [");
-				System.out.println("  a cheminf:CHEMINF_000000");
-				System.out.println("  dc:label \"" + entity.getSurface() + "\"");
-				System.out.println("] .");
-			}
+		for (NamedEntity entity : molecules.keySet()) {
+			formatter.write(entity, molecules.get(entity));
 		}
 	}
 	
 	public static void main(String[] args) throws Exception {
 		OscarCLI command = new OscarCLI();
 		List<String> extras = Args.parse(command, args);
+		IOutputFormatter formatter;
 
 		if ("text/turtle".equals(command.accepts)) {
-			System.out.println("@prefix dc: <http://purl.org/dc/elements/1.1/> .");
-			System.out.println("@prefix ex: <http://example.org/stuff/1.0/> .");
-			System.out.println("@prefix cheminf: <http://semanticscience.org/resource/> .");
+			formatter = new CHEMINFFormatter(System.out);
+		} else {
+			formatter = new STDOUTFormatter(System.out);
 		}
 
 		if (extras.size() == 1 && extras.get(0).equals("--")) {
@@ -73,13 +64,13 @@ public class OscarCLI {
 			while ((line = reader.readLine()) != null) {
 				// FIXME: need to do something clever to work around chemical
 				//   entity names split over two (or more) lines
-				command.processLine(line);
+				command.processLine(line, formatter);
 			}
 		} else {
 			// concat all strings and pass that
 			StringBuilder builder = new StringBuilder();
 			for (String string : extras) builder.append(string);
-			command.processLine(builder.toString());
+			command.processLine(builder.toString(), formatter);
 		}
 	}
 
