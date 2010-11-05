@@ -117,5 +117,8 @@ public class OscarCLITest {
 		Assert.assertTrue(output.contains("@prefix"));
 		Assert.assertTrue(output.contains("cheminf"));
 		Assert.assertTrue(output.contains("ex:entity"));
+		Assert.assertTrue(output.contains("CHEMINF_000113"));
+		Assert.assertTrue(output.contains("SIO_000300"));
+		Assert.assertTrue(output.contains("InChI"));
 	}
 }
