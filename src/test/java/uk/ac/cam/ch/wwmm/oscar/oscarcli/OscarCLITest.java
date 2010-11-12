@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
-import uk.ac.cam.ch.wwmm.oscar.adv.AdvancedOscar;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
@@ -25,7 +24,7 @@ import ch.unibe.jexample.JExample;
 public class OscarCLITest {
 
 	@Test public Oscar testConstructor() throws Exception {
-		AdvancedOscar oscar = new AdvancedOscar(getClass().getClassLoader());
+		Oscar oscar = new Oscar();
 		Assert.assertNotNull(oscar);
 		return oscar;
 	}
