@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.cam.ch.wwmm.oscarMEMM.memm.MEMMTrainer;
+
 /**
  * Command line utility to train a new MEMM model from the input data.
  * It takes as command line arguments the location of input files. The
@@ -11,7 +13,7 @@ import java.util.List;
  * 
  * @author egonw
  */
-public class MEMMTrainer {
+public class MEMMTrainerCLI {
 
 	public static void main(String[] args) throws Exception {
 		List<File> files = new ArrayList<File>();
@@ -29,8 +31,7 @@ public class MEMMTrainer {
 			System.exit(0);
 		}
 		
-		uk.ac.cam.ch.wwmm.oscarMEMM.memm.MEMMTrainer trainer =
-			new uk.ac.cam.ch.wwmm.oscarMEMM.memm.MEMMTrainer();
+		MEMMTrainer trainer = new MEMMTrainer();
 		trainer.trainOnSbFiles(files, null);
 		trainer.finishTraining();
 		System.out.println(trainer.writeModel().toXML());
