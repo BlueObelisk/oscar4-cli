@@ -32,7 +32,7 @@ public class MEMMTrainerCLI {
 		}
 		
 		MEMMTrainer trainer = new MEMMTrainer();
-		trainer.trainOnSbFiles(files, null);
+		trainer.trainOnSbFiles(files);
 		trainer.finishTraining();
 		System.out.println(trainer.writeModel().toXML());
 	}
