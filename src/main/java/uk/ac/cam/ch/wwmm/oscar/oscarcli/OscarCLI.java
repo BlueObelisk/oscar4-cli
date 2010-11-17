@@ -84,7 +84,6 @@ public class OscarCLI {
 		if (command.html) {
 			Source source = new Source(content);
 			content = source.getTextExtractor().toString();
-			System.out.println("New content: " + content);
 		}
 		
 		command.processLine(content, formatter);
