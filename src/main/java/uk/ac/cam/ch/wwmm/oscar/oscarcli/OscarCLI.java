@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
+import net.htmlparser.jericho.Source;
+
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
@@ -34,6 +36,9 @@ public class OscarCLI {
     @Argument(description = "If true, reads the input from STDIN.")
     private boolean stdin = false;
 
+    @Argument(description = "If true, the input is HTML.")
+    private boolean html = false;
+
 	private Oscar oscar;
 
 	public OscarCLI() throws Exception {
@@ -62,6 +67,7 @@ public class OscarCLI {
 			formatter = new STDOUTFormatter(System.out);
 		}
 
+		StringBuilder builder = new StringBuilder();
 		if (command.stdin) {
 			// read from STDIN
 			BufferedReader reader = new BufferedReader(
@@ -69,16 +75,19 @@ public class OscarCLI {
 			);
 			String line;
 			while ((line = reader.readLine()) != null) {
-				// FIXME: need to do something clever to work around chemical
-				//   entity names split over two (or more) lines
-				command.processLine(line, formatter);
+				builder.append(line);
 			}
 		} else {
-			// concat all strings and pass that
-			StringBuilder builder = new StringBuilder();
 			for (String string : extras) builder.append(string);
-			command.processLine(builder.toString(), formatter);
 		}
+		String content = builder.toString();
+		if (command.html) {
+			Source source = new Source(content);
+			content = source.getTextExtractor().toString();
+			System.out.println("New content: " + content);
+		}
+		
+		command.processLine(content, formatter);
 	}
 
 
