@@ -31,6 +31,9 @@ public class OscarCLI {
     )
 	private String accepts = "text/plain";
 
+    @Argument(description = "If true, reads the input from STDIN.")
+    private boolean stdin = false;
+
 	private Oscar oscar;
 
 	public OscarCLI() throws Exception {
@@ -59,7 +62,7 @@ public class OscarCLI {
 			formatter = new STDOUTFormatter(System.out);
 		}
 
-		if (extras.size() == 1 && extras.get(0).equals("--")) {
+		if (command.stdin) {
 			// read from STDIN
 			BufferedReader reader = new BufferedReader(
 				new InputStreamReader(System.in)
