@@ -17,6 +17,10 @@ import com.sampullara.cli.Args;
 import com.sampullara.cli.Argument;
 
 /**
+ * Command line utility to invoke Oscar. It takes plain text as input, and
+ * outputs recognized chemical entites as output in either plain text or
+ * in Turtle output.
+ *
  * @author egonw
  */
 public class OscarCLI {
