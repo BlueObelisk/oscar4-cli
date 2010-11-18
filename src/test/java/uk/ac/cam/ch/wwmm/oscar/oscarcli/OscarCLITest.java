@@ -106,7 +106,7 @@ public class OscarCLITest {
 		System.setOut(pStream);
 		OscarCLI.main(
 			new String[]{
-				"-accepts", "text/turtle",
+				"-output", "text/turtle",
 				"This is a simple input string with benzene."
 			}
 		);

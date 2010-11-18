@@ -28,10 +28,10 @@ import com.sampullara.cli.Argument;
 public class OscarCLI {
 
     @Argument(
-      value="accepts",
+      value="output",
       description="Mime type of expected output. Supported: text/plain, text/turtle."
     )
-	private String accepts = "text/plain";
+	private String output = "text/plain";
 
     @Argument(description = "If true, reads the input from STDIN.")
     private boolean stdin = false;
@@ -61,7 +61,7 @@ public class OscarCLI {
 		List<String> extras = Args.parse(command, args);
 		IOutputFormatter formatter;
 
-		if ("text/turtle".equals(command.accepts)) {
+		if ("text/turtle".equals(command.output)) {
 			formatter = new CHEMINFFormatter(System.out);
 		} else {
 			formatter = new STDOUTFormatter(System.out);
