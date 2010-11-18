@@ -78,7 +78,9 @@ public class OscarCLI {
 				builder.append(line);
 			}
 		} else {
-			for (String string : extras) builder.append(string);
+			for (String string : extras) {
+				builder.append(string).append(' ');
+			}
 		}
 		String content = builder.toString();
 		if (command.html) {
