@@ -4,7 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import nu.xom.Document;
+
 import uk.ac.cam.ch.wwmm.oscarMEMM.memm.MEMMTrainer;
+import uk.ac.cam.ch.wwmm.oscarMEMM.models.Model;
 
 /**
  * Command line utility to train a new MEMM model from the input data.
@@ -23,6 +26,7 @@ public class MEMMTrainerCLI {
 				System.out.println("File does not exist: " + fileName);
 				System.exit(-1);
 			}
+			files.add(file);
 		}
 		if (files.size() == 0) {
 			System.out.println(
@@ -34,6 +38,7 @@ public class MEMMTrainerCLI {
 		MEMMTrainer trainer = new MEMMTrainer();
 		trainer.trainOnSbFiles(files);
 		trainer.finishTraining();
-		System.out.println(trainer.writeModel().toXML());
+		Document model = Model.makeModel();
+		System.out.println(model.toXML());
 	}
 }
