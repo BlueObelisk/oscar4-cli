@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.htmlparser.jericho.Source;
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
+import uk.ac.cam.ch.wwmm.oscar.document.ITokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.Token;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
@@ -31,7 +32,7 @@ public class TokeniserCLI {
 	public void processLine(String line) throws Exception {
 		line = oscar.normalize(line);
 		List<TokenSequence> tokens = oscar.tokenize(line);
-		for (TokenSequence sequence : tokens) {
+		for (ITokenSequence sequence : tokens) {
 			for (Token token : sequence.getTokens()) {
 				System.out.println(token.getValue());
 			}
