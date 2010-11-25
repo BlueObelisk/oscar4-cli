@@ -8,7 +8,6 @@ import net.htmlparser.jericho.Source;
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.document.IToken;
 import uk.ac.cam.ch.wwmm.oscar.document.ITokenSequence;
-import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
 
 import com.sampullara.cli.Args;
@@ -31,7 +30,7 @@ public class TokeniserCLI {
 
 	public void processLine(String line) throws Exception {
 		line = oscar.normalize(line);
-		List<TokenSequence> tokens = oscar.tokenize(line);
+		List<ITokenSequence> tokens = oscar.tokenize(line);
 		for (ITokenSequence sequence : tokens) {
 			for (IToken token : sequence.getTokens()) {
 				System.out.println(token.getValue());
