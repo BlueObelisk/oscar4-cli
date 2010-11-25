@@ -11,8 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
+import uk.ac.cam.ch.wwmm.oscar.document.ITokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
-import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
 import ch.unibe.jexample.Given;
 import ch.unibe.jexample.JExample;
@@ -37,15 +37,15 @@ public class OscarCLITest {
 	}
 
 	@Given("#testConstructor,#testNormalize")
-	public List<TokenSequence> testTokenize(Oscar oscar, String input) throws Exception {
-		List<TokenSequence> tokens = oscar.tokenize(input);
+	public List<ITokenSequence> testTokenize(Oscar oscar, String input) throws Exception {
+		List<ITokenSequence> tokens = oscar.tokenize(input);
 		Assert.assertNotNull(tokens);
 		Assert.assertNotSame(0, tokens.size());
 		return tokens;
 	}
 
 	@Given("#testConstructor,#testTokenize")
-	public List<NamedEntity> testRecognizeNamedEntities(Oscar oscar, List<TokenSequence> tokens) throws Exception {
+	public List<NamedEntity> testRecognizeNamedEntities(Oscar oscar, List<ITokenSequence> tokens) throws Exception {
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());

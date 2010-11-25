@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import net.htmlparser.jericho.Source;
-
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
+import uk.ac.cam.ch.wwmm.oscar.document.ITokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
-import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.formatter.IOutputFormatter;
 import uk.ac.cam.ch.wwmm.oscar.formatter.STDOUTFormatter;
 import uk.ac.cam.ch.wwmm.oscar.formatter.rdf.CHEMINFFormatter;
@@ -48,7 +47,7 @@ public class OscarCLI {
 	
 	public void processLine(String line, IOutputFormatter formatter) throws Exception {
 		line = oscar.normalize(line);
-		List<TokenSequence> tokens = oscar.tokenize(line);
+		List<ITokenSequence> tokens = oscar.tokenize(line);
 		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
 		Map<NamedEntity,String> molecules = oscar.resolveNamedEntities(entities);
 		for (NamedEntity entity : molecules.keySet()) {
