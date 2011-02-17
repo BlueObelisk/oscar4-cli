@@ -33,7 +33,7 @@ public class TokeniserCLI {
 		List<ITokenSequence> tokens = oscar.tokenize(line);
 		for (ITokenSequence sequence : tokens) {
 			for (IToken token : sequence.getTokens()) {
-				System.out.println(token.getValue());
+				System.out.println(token.getSurface());
 			}
 		}
 	}
