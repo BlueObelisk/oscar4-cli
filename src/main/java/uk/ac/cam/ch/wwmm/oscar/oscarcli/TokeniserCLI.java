@@ -30,7 +30,7 @@ public class TokeniserCLI {
 
 	public void processLine(String line) throws Exception {
 		line = oscar.normalize(line);
-		List<ITokenSequence> tokens = oscar.tokenize(line);
+		List<ITokenSequence> tokens = oscar.tokenise(line);
 		for (ITokenSequence sequence : tokens) {
 			for (IToken token : sequence.getTokens()) {
 				System.out.println(token.getSurface());
