@@ -47,8 +47,8 @@ public class OscarCLI {
 	
 	public void processLine(String line, IOutputFormatter formatter) throws Exception {
 		line = oscar.normalize(line);
-		List<ITokenSequence> tokens = oscar.tokenize(line);
-		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
+		List<ITokenSequence> tokens = oscar.tokenise(line);
+		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
 		Map<NamedEntity,String> molecules = oscar.resolveNamedEntities(entities);
 		for (NamedEntity entity : molecules.keySet()) {
 			formatter.write(entity, molecules.get(entity));

@@ -38,7 +38,7 @@ public class OscarCLITest {
 
 	@Given("#testConstructor,#testNormalize")
 	public List<ITokenSequence> testTokenize(Oscar oscar, String input) throws Exception {
-		List<ITokenSequence> tokens = oscar.tokenize(input);
+		List<ITokenSequence> tokens = oscar.tokenise(input);
 		Assert.assertNotNull(tokens);
 		Assert.assertNotSame(0, tokens.size());
 		return tokens;
@@ -46,7 +46,7 @@ public class OscarCLITest {
 
 	@Given("#testConstructor,#testTokenize")
 	public List<NamedEntity> testRecognizeNamedEntities(Oscar oscar, List<ITokenSequence> tokens) throws Exception {
-		List<NamedEntity> entities = oscar.recognizeNamedEntities(tokens);
+		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
 		Assert.assertNotNull(entities);
 		Assert.assertEquals(1, entities.size());
 		System.out.println(""+ entities.get(0));
