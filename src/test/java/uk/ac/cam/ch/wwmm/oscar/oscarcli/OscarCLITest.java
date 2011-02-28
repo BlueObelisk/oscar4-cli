@@ -1,89 +1,101 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
+import static org.junit.Assert.*;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Assert;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.document.ITokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
-import ch.unibe.jexample.Given;
-import ch.unibe.jexample.JExample;
 
 /**
  * @author egonw
  */
-@RunWith(JExample.class)
 public class OscarCLITest {
 
-	@Test public Oscar testConstructor() throws Exception {
-		Oscar oscar = new Oscar();
-		Assert.assertNotNull(oscar);
-		return oscar;
+	public static Oscar oscar;
+	
+	@BeforeClass
+	public static void setUp() {
+		oscar = new Oscar();
+	}
+	
+	@AfterClass
+	public static void cleanUp() {
+		oscar = null;
+	}
+	
+	
+	@Test
+	public void testConstructor() {
+		assertNotNull(oscar);
 	}
 
-	@Given("#testConstructor")
-	public String testNormalize(Oscar oscar) throws URISyntaxException {
+	@Test
+	public void testNormalize() {
 		String input = oscar.normalize("This is a simple input string with benzene.");
-		Assert.assertNotNull(input);
-		return input;
+		assertNotNull(input);
 	}
 
-	@Given("#testConstructor,#testNormalize")
-	public List<ITokenSequence> testTokenize(Oscar oscar, String input) throws Exception {
-		List<ITokenSequence> tokens = oscar.tokenise(input);
-		Assert.assertNotNull(tokens);
-		Assert.assertNotSame(0, tokens.size());
-		return tokens;
+	@Test
+	public void testTokenize() {
+		List<ITokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
+		assertNotNull(tokens);
+		assertNotSame(0, tokens.size());
 	}
 
-	@Given("#testConstructor,#testTokenize")
-	public List<NamedEntity> testRecognizeNamedEntities(Oscar oscar, List<ITokenSequence> tokens) throws Exception {
+	@Test
+	public void testRecognizeNamedEntities() {
+		List<ITokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
 		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
-		Assert.assertNotNull(entities);
-		Assert.assertEquals(1, entities.size());
+		assertNotNull(entities);
+		assertEquals(1, entities.size());
 		System.out.println(""+ entities.get(0));
-		return entities;
 	}
 
-	@Given("#testConstructor,#testRecognizeNamedEntities")
-	public void testResolveNamedEntities(Oscar oscar, List<NamedEntity> entities) throws Exception {
+	@Test
+	public void testResolveNamedEntities() {
+		List<ITokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
+		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
 		oscar.getDictionaryRegistry().register(new OpsinDictionary());
 		Map<NamedEntity,String> structures = oscar.resolveNamedEntities(entities);
-		Assert.assertNotNull(structures);
-		Assert.assertEquals(1, structures.size());
+		assertNotNull(structures);
+		assertEquals(1, structures.size());
 		System.out.println(""+ structures.values().iterator().next());
 	}
 
-	@Given("#testConstructor")
-	public void testGetNamedEntities(Oscar oscar) throws Exception {
+	@Test
+	public void testGetNamedEntities() {
 		List<NamedEntity> structures = oscar.getNamedEntities(
 			"Ingredients: acetic acid, water."
 		);
-		Assert.assertNotNull(structures);
+		assertNotNull(structures);
 		for (NamedEntity ent : structures)
 			System.out.println(ent.getSurface());
-		Assert.assertEquals(3, structures.size());
+		assertEquals(3, structures.size());
 	}
 
-	@Given("#testConstructor")
-	public void testGetResolvedEntities(Oscar oscar) throws Exception {
+	@Test
+	public void testGetResolvedEntities() {
 		oscar.getDictionaryRegistry().register(new OpsinDictionary());
 		Map<NamedEntity,String> structures = oscar.getResolvedEntities(
 			"Ingredients: acetic acid, water."
 		);
-		Assert.assertNotNull(structures);
-		Assert.assertEquals(2, structures.size());
+		assertNotNull(structures);
+		assertEquals(2, structures.size());
 	}
 
-	@Test public void testMainPlainText() throws Exception {
+	@Test
+	public void testMainPlainText() throws IOException {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		PrintStream pStream = new PrintStream(stream, true);
 		PrintStream originalOut = System.out;
@@ -96,10 +108,11 @@ public class OscarCLITest {
 		System.setOut(originalOut);
 		String output = stream.toString();
 		System.out.println("output: " + output);
-		Assert.assertTrue(output.contains("InChI"));
+		assertTrue(output.contains("InChI"));
 	}
 
-	@Test public void testMainRDF() throws Exception {
+	@Test
+	public void testMainRDF() throws IOException  {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		PrintStream pStream = new PrintStream(stream, true);
 		PrintStream originalOut = System.out;
@@ -113,11 +126,11 @@ public class OscarCLITest {
 		System.setOut(originalOut);
 		String output = stream.toString();
 		System.out.println("output: " + output);
-		Assert.assertTrue(output.contains("@prefix"));
-		Assert.assertTrue(output.contains("cheminf"));
-		Assert.assertTrue(output.contains("ex:entity"));
-		Assert.assertTrue(output.contains("CHEMINF_000113"));
-		Assert.assertTrue(output.contains("SIO_000300"));
-		Assert.assertTrue(output.contains("InChI"));
+		assertTrue(output.contains("@prefix"));
+		assertTrue(output.contains("cheminf"));
+		assertTrue(output.contains("ex:entity"));
+		assertTrue(output.contains("CHEMINF_000113"));
+		assertTrue(output.contains("SIO_000300"));
+		assertTrue(output.contains("InChI"));
 	}
 }

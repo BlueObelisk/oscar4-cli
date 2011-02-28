@@ -1,6 +1,7 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
@@ -40,12 +41,12 @@ public class OscarCLI {
 
 	private Oscar oscar;
 
-	public OscarCLI() throws Exception {
+	public OscarCLI() {
 		oscar = new Oscar();
 		oscar.getDictionaryRegistry().register(new OpsinDictionary());
 	};
 	
-	public void processLine(String line, IOutputFormatter formatter) throws Exception {
+	public void processLine(String line, IOutputFormatter formatter) {
 		line = oscar.normalize(line);
 		List<ITokenSequence> tokens = oscar.tokenise(line);
 		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
@@ -55,7 +56,7 @@ public class OscarCLI {
 		}
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
 		OscarCLI command = new OscarCLI();
 		List<String> extras = Args.parse(command, args);
 		IOutputFormatter formatter;
