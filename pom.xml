@@ -19,10 +19,6 @@
       <id>ucc-repo</id>
       <url>https://maven.ch.cam.ac.uk/m2repo</url>
     </repository>
-    <repository>
-      <id>jexample-repo</id>
-      <url>http://scg.unibe.ch/download/jexample/maven/</url>
-    </repository>
   </repositories>
 
   <properties>
