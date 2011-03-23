@@ -76,7 +76,7 @@ public class OscarCLITest {
 	@Test
 	public void testGetNamedEntities() {
 		List<NamedEntity> structures = oscar.getNamedEntities(
-			"Ingredients: acetic acid, water."
+			"Acetic acid is an acid - water is not."
 		);
 		assertNotNull(structures);
 		for (NamedEntity ent : structures)
@@ -88,7 +88,7 @@ public class OscarCLITest {
 	public void testGetResolvedEntities() {
 		oscar.getDictionaryRegistry().register(new OpsinDictionary());
 		Map<NamedEntity,String> structures = oscar.getResolvedEntities(
-			"Ingredients: acetic acid, water."
+			"Acetic acid is an acid - water is not."
 		);
 		assertNotNull(structures);
 		assertEquals(2, structures.size());
