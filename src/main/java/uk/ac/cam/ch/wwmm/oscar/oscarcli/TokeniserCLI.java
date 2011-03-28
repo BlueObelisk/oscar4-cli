@@ -29,7 +29,8 @@ public class TokeniserCLI {
 	};
 
 	public void processLine(String line) throws Exception {
-		line = oscar.normalize(line);
+		//TODO oscar.normalise isn't implemented yet!
+//		line = oscar.normalise(line);
 		List<ITokenSequence> tokens = oscar.tokenise(line);
 		for (ITokenSequence sequence : tokens) {
 			for (IToken token : sequence.getTokens()) {
