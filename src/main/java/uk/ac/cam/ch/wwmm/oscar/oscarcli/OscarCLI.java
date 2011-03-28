@@ -47,7 +47,8 @@ public class OscarCLI {
 	};
 	
 	public void processLine(String line, IOutputFormatter formatter) {
-		line = oscar.normalize(line);
+		//TODO oscar.normalise isn't implemented yet!
+//		line = oscar.normalise(line);
 		List<ITokenSequence> tokens = oscar.tokenise(line);
 		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
 		Map<NamedEntity,String> molecules = oscar.resolveNamedEntities(entities);
