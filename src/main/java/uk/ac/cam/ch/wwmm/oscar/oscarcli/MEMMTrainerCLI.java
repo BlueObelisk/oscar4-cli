@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.cam.ch.wwmm.oscar.chemnamedict.ChemNameDictRegistry;
 import uk.ac.cam.ch.wwmm.oscarMEMM.memm.MEMMTrainer;
 
 /**
@@ -32,7 +33,7 @@ public class MEMMTrainerCLI {
 			System.exit(0);
 		}
 		
-		MEMMTrainer trainer = new MEMMTrainer();
+		MEMMTrainer trainer = new MEMMTrainer(ChemNameDictRegistry.getDefaultInstance());
 		trainer.trainOnSbFiles(files);
 		trainer.finishTraining();
 		System.out.println(trainer.getModel().writeModel().toXML());
