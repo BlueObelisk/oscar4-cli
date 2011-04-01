@@ -13,7 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
-import uk.ac.cam.ch.wwmm.oscar.document.ITokenSequence;
+import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
 
@@ -49,14 +49,14 @@ public class OscarCLITest {
 
 	@Test
 	public void testTokenize() {
-		List<ITokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
+		List<TokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
 		assertNotNull(tokens);
 		assertNotSame(0, tokens.size());
 	}
 
 	@Test
 	public void testRecognizeNamedEntities() {
-		List<ITokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
+		List<TokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
 		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
 		assertNotNull(entities);
 		assertEquals(1, entities.size());
@@ -65,7 +65,7 @@ public class OscarCLITest {
 
 	@Test
 	public void testResolveNamedEntities() {
-		List<ITokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
+		List<TokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
 		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
 		oscar.getDictionaryRegistry().register(new OpsinDictionary());
 		Map<NamedEntity,String> structures = oscar.resolveNamedEntities(entities);

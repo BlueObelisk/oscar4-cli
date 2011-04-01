@@ -6,8 +6,8 @@ import java.util.List;
 
 import net.htmlparser.jericho.Source;
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
-import uk.ac.cam.ch.wwmm.oscar.document.IToken;
-import uk.ac.cam.ch.wwmm.oscar.document.ITokenSequence;
+import uk.ac.cam.ch.wwmm.oscar.document.Token;
+import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
 
 import com.sampullara.cli.Args;
@@ -31,9 +31,9 @@ public class TokeniserCLI {
 	public void processLine(String line) throws Exception {
 		//TODO oscar.normalise isn't implemented yet!
 //		line = oscar.normalise(line);
-		List<ITokenSequence> tokens = oscar.tokenise(line);
-		for (ITokenSequence sequence : tokens) {
-			for (IToken token : sequence.getTokens()) {
+		List<TokenSequence> tokens = oscar.tokenise(line);
+		for (TokenSequence sequence : tokens) {
+			for (Token token : sequence.getTokens()) {
 				System.out.println(token.getSurface());
 			}
 		}
