@@ -8,6 +8,8 @@ import java.util.Map;
 
 import net.htmlparser.jericho.Source;
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
+import uk.ac.cam.ch.wwmm.oscar.chemnamedict.entities.FormatType;
+import uk.ac.cam.ch.wwmm.oscar.chemnamedict.entities.ResolvedNamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.formatter.IOutputFormatter;
@@ -49,11 +51,9 @@ public class OscarCLI {
 	public void processLine(String line, IOutputFormatter formatter) {
 		//TODO oscar.normalise isn't implemented yet!
 //		line = oscar.normalise(line);
-		List<TokenSequence> tokens = oscar.tokenise(line);
-		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
-		Map<NamedEntity,String> molecules = oscar.resolveNamedEntities(entities);
-		for (NamedEntity entity : molecules.keySet()) {
-			formatter.write(entity, molecules.get(entity));
+		List<ResolvedNamedEntity> resolved = oscar.findResolvableEntities(line);
+		for (ResolvedNamedEntity rne : resolved) {
+			formatter.write(rne.getNamedEntity(), rne.getFirstChemicalStructure(FormatType.INCHI).getValue());
 		}
 	}
 	

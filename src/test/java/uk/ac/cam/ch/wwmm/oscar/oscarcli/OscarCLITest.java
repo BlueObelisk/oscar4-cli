@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
+import uk.ac.cam.ch.wwmm.oscar.chemnamedict.entities.ResolvedNamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
@@ -63,16 +64,17 @@ public class OscarCLITest {
 		System.out.println(""+ entities.get(0));
 	}
 
-	@Test
-	public void testResolveNamedEntities() {
-		List<TokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
-		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
-		oscar.getDictionaryRegistry().register(new OpsinDictionary());
-		Map<NamedEntity,String> structures = oscar.resolveNamedEntities(entities);
-		assertNotNull(structures);
-		assertEquals(1, structures.size());
-		System.out.println(""+ structures.values().iterator().next());
-	}
+// Oscar.resolveNamedEntities method is currently private	
+//	@Test
+//	public void testResolveNamedEntities() {
+//		List<TokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
+//		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
+//		oscar.getDictionaryRegistry().register(new OpsinDictionary());
+//		Map<NamedEntity,String> structures = oscar.resolveNamedEntities(entities);
+//		assertNotNull(structures);
+//		assertEquals(1, structures.size());
+//		System.out.println(""+ structures.values().iterator().next());
+//	}
 
 	@Test
 	public void testGetNamedEntities() {
@@ -86,12 +88,11 @@ public class OscarCLITest {
 	}
 
 	@Test
-	public void testGetResolvedEntities() {
+	public void testFindResolvableEntities() {
 		oscar.getDictionaryRegistry().register(new OpsinDictionary());
-		Map<NamedEntity,String> structures = oscar.findResolvedEntities(
+		List <ResolvedNamedEntity> structures = oscar.findResolvableEntities(
 			"Acetic acid is an acid - water is not."
 		);
-		assertNotNull(structures);
 		assertEquals(2, structures.size());
 	}
 
