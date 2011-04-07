@@ -45,7 +45,6 @@ public class OscarCLI {
 
 	public OscarCLI() {
 		oscar = new Oscar();
-		oscar.getDictionaryRegistry().register(new OpsinDictionary());
 	};
 	
 	public void processLine(String line, IOutputFormatter formatter) {

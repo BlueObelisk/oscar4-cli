@@ -89,7 +89,6 @@ public class OscarCLITest {
 
 	@Test
 	public void testFindResolvableEntities() {
-		oscar.getDictionaryRegistry().register(new OpsinDictionary());
 		List <ResolvedNamedEntity> structures = oscar.findResolvableEntities(
 			"Acetic acid is an acid - water is not."
 		);
