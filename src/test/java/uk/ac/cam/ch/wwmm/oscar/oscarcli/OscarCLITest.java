@@ -6,7 +6,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -14,9 +13,8 @@ import org.junit.Test;
 
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.chemnamedict.entities.ResolvedNamedEntity;
-import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
-import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
+import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
 
 /**
  * @author egonw
@@ -49,14 +47,14 @@ public class OscarCLITest {
 //	}
 
 	@Test
-	public void testTokenize() {
+	public void testTokenise() {
 		List<TokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
 		assertNotNull(tokens);
 		assertNotSame(0, tokens.size());
 	}
 
 	@Test
-	public void testRecognizeNamedEntities() {
+	public void testRecogniseNamedEntities() {
 		List<TokenSequence> tokens = oscar.tokenise("This is a simple input string with benzene.");
 		List<NamedEntity> entities = oscar.recogniseNamedEntities(tokens);
 		assertNotNull(entities);
