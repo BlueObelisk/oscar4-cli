@@ -83,11 +83,11 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <!--<archive>-->
-                    <!--<manifest>-->
-                    <!--<mainClass>net.sf.jniinchi.Main</mainClass>-->
-                    <!--</manifest>-->
-                    <!--</archive>-->
+                    <archive>
+                        <manifest>
+                            <mainClass>uk.ac.cam.ch.wwmm.oscar.oscarcli.OscarCLI</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
