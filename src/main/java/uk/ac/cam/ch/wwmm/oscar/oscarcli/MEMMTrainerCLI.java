@@ -1,11 +1,11 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
+import uk.ac.cam.ch.wwmm.oscar.chemnamedict.core.ChemNameDictRegistry;
+import uk.ac.cam.ch.wwmm.oscarMEMM.memm.MEMMTrainer;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import uk.ac.cam.ch.wwmm.oscar.chemnamedict.core.ChemNameDictRegistry;
-import uk.ac.cam.ch.wwmm.oscarMEMM.memm.MEMMTrainer;
 
 /**
  * Command line utility to train a new MEMM model from the input data.
