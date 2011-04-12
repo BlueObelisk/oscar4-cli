@@ -1,24 +1,19 @@
 package uk.ac.cam.ch.wwmm.oscar.oscarcli;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.Map;
-
+import com.sampullara.cli.Args;
+import com.sampullara.cli.Argument;
 import net.htmlparser.jericho.Source;
 import uk.ac.cam.ch.wwmm.oscar.Oscar;
 import uk.ac.cam.ch.wwmm.oscar.chemnamedict.entities.FormatType;
 import uk.ac.cam.ch.wwmm.oscar.chemnamedict.entities.ResolvedNamedEntity;
-import uk.ac.cam.ch.wwmm.oscar.document.TokenSequence;
-import uk.ac.cam.ch.wwmm.oscar.document.NamedEntity;
 import uk.ac.cam.ch.wwmm.oscar.formatter.IOutputFormatter;
 import uk.ac.cam.ch.wwmm.oscar.formatter.STDOUTFormatter;
 import uk.ac.cam.ch.wwmm.oscar.formatter.rdf.CHEMINFFormatter;
-import uk.ac.cam.ch.wwmm.oscar.opsin.OpsinDictionary;
 
-import com.sampullara.cli.Args;
-import com.sampullara.cli.Argument;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Command line utility to invoke Oscar. It takes plain text as input, and
