@@ -47,7 +47,7 @@ public class OscarCLI {
 //		line = oscar.normalise(line);
 		List<ResolvedNamedEntity> resolved = oscar.findResolvableEntities(line);
 		for (ResolvedNamedEntity rne : resolved) {
-			formatter.write(rne.getNamedEntity(), rne.getFirstChemicalStructure(FormatType.INCHI).getValue());
+			formatter.write(rne.getNamedEntity(), rne.getFirstChemicalStructure(FormatType.STD_INCHI).getValue());
 		}
 	}
 	
