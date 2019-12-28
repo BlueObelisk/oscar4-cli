@@ -1,6 +1,6 @@
-# Oscar4 Command Line Interface #
+# OSCAR4 Command Line Interface #
 
-A set of small programs to run bits of the [Oscar4](https://bitbucket.org/wwmm/oscar4) software.
+A set of small programs to run bits of the [OSCAR4](https://github.com/BlueObelisk/oscar4) software.
 
 ## Example usage: ##
 
