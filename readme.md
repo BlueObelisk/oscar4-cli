@@ -4,7 +4,7 @@ A set of small programs to run bits of the [OSCAR4](https://github.com/BlueObeli
 
 ## Example usage: ##
 
-```
+```shell
 #!bash
 echo "benzene mixed with water" | java -jar oscar4-cli-4.2-SNAPSHOT-jar-with-dependencies.jar -stdin
 INFO - Initialising OPSIN... 
