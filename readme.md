@@ -1,4 +1,5 @@
 # OSCAR4 Command Line Interface #
+[![Build Status](https://travis-ci.org/BlueObelisk/oscar4-cli.svg?branch=master)](https://travis-ci.org/BlueObelisk/oscar4-cli)
 
 A set of small programs to run bits of the [OSCAR4](https://github.com/BlueObelisk/oscar4) software.
 
